@@ -30,28 +30,23 @@ PreparedStatement pst=null;
         con= Connect.ConnectDB();
         Get_Data();
         setLocationRelativeTo(null);
+
     }
 private void Reset()
 {
     txtRoomNo.setText("");
-    txtRoomCharges.setText("");
     cmbRoomType.setSelectedIndex(-1);
-    btnSave.setEnabled(true);
-    btnDelete.setEnabled(false);
-    btnUpdate.setEnabled(false);
-    txtRoomNo.requestDefaultFocus();
-    Get_Data();
+    txtRoomCharges.setText("");
 }
   private void Get_Data(){
-     String sql="select RoomNo as 'Room No.',RoomType as 'Room Type', RoomCharges as 'Room Charges',RoomStatus as 'Room Status' from Room";
-     try{
-         pst=con.prepareStatement(sql);
-          rs= pst.executeQuery();
-         Room_table.setModel(DbUtils.resultSetToTableModel(rs));
-         }catch(Exception e){
-            JOptionPane.showMessageDialog(null, e);
-          
-}
+     String sql = "SELECT RoomNo as 'Room No.', RoomType as 'Room Type', NoOfRooms as 'No of Rooms' FROM Room";
+    try {
+        pst = con.prepareStatement(sql);
+        rs = pst.executeQuery();
+        Room_table.setModel(DbUtils.resultSetToTableModel(rs));
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,14 +64,11 @@ private void Reset()
         txtRoomNo = new javax.swing.JTextField();
         cmbRoomType = new javax.swing.JComboBox();
         txtRoomCharges = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
-        btnNew = new javax.swing.JButton();
-        btnSave = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        btnDelete = new javax.swing.JButton();
-        btnGetData = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Room_table = new javax.swing.JTable();
 
@@ -86,26 +78,34 @@ private void Reset()
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Room Info"));
 
-        jLabel1.setText("Room No.");
+        jLabel1.setText("Room No");
 
         jLabel2.setText("Room Type");
 
         jLabel3.setText("No of Rooms");
 
-        cmbRoomType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "General", "Deluxe" }));
-        cmbRoomType.setSelectedIndex(-1);
-
-        txtRoomCharges.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtRoomChargesKeyTyped(evt);
+        txtRoomNo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRoomNoActionPerformed(evt);
             }
         });
 
-        jLabel4.setText("Room Status");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        cmbRoomType.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "General", "Deluxe" }));
+        cmbRoomType.setSelectedIndex(-1);
+        cmbRoomType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                cmbRoomTypeActionPerformed(evt);
+            }
+        });
+
+        txtRoomCharges.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtRoomChargesActionPerformed(evt);
+            }
+        });
+        txtRoomCharges.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRoomChargesKeyTyped(evt);
             }
         });
 
@@ -116,17 +116,14 @@ private void Reset()
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtRoomNo)
                     .addComponent(cmbRoomType, 0, 84, Short.MAX_VALUE)
-                    .addComponent(txtRoomCharges)
-                    .addComponent(jTextField1))
+                    .addComponent(txtRoomCharges))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -144,54 +141,36 @@ private void Reset()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtRoomCharges, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        btnNew.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnNew.setText("New");
-        btnNew.addActionListener(new java.awt.event.ActionListener() {
+        jButton1.setText("New");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNewActionPerformed(evt);
+                jButton1ActionPerformed(evt);
             }
         });
 
-        btnSave.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnSave.setText("Save");
-        btnSave.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Save");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
 
-        btnUpdate.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnUpdate.setText("Update");
-        btnUpdate.setEnabled(false);
-        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("Delete");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUpdateActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
-        btnDelete.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnDelete.setText("Delete");
-        btnDelete.setEnabled(false);
-        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.setText("Update");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteActionPerformed(evt);
-            }
-        });
-
-        btnGetData.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnGetData.setText("Get Data");
-        btnGetData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGetDataActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
 
@@ -202,28 +181,28 @@ private void Reset()
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNew, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnGetData)
+                        .addComponent(jButton2)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnSave, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnNew)
+                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSave)
+                .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnUpdate)
+                .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelete)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnGetData)
+                .addComponent(jButton4)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -233,11 +212,11 @@ private void Reset()
 
             },
             new String [] {
-                "Room No.", "Room Type", "No of Rooms", "Room Status"
+                "Room No", "Room Type", "No of Rooms"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true
+                false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -274,7 +253,7 @@ private void Reset()
                     .addGroup(layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -286,111 +265,24 @@ private void Reset()
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGetDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGetDataActionPerformed
-      Get_Data();
-    }//GEN-LAST:event_btnGetDataActionPerformed
-
-    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
-    Reset();
-    }//GEN-LAST:event_btnNewActionPerformed
-
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        try
-          {
-        int P = JOptionPane.showConfirmDialog(null," Are you sure want to delete ?","Confirmation",JOptionPane.YES_NO_OPTION);
-     if (P==0)
-     {
-        con=Connect.ConnectDB();
-       
-        String sql= "delete from Room where RoomNo = '" + txtRoomNo.getText() + "'";
-        pst=con.prepareStatement(sql);
-        pst.execute();  
-        JOptionPane.showMessageDialog(this,"Successfully deleted","Record",JOptionPane.INFORMATION_MESSAGE); 
-        Reset();
-          }
-      }catch(HeadlessException | SQLException ex){
-           JOptionPane.showMessageDialog(this,ex); 
-                }
-         
-    }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    try{
-      con=Connect.ConnectDB();
-       if (txtRoomNo.getText().equals("")) {
-           JOptionPane.showMessageDialog( this, "Please enter room no.","Error", JOptionPane.ERROR_MESSAGE);
-           return;
-            }
-        if (cmbRoomType.getSelectedItem().equals("")) {
-           JOptionPane.showMessageDialog( this, "Please select room type","Error", JOptionPane.ERROR_MESSAGE);
-           return;
-            }
-                if (txtRoomCharges.getText().equals("")) {
-           JOptionPane.showMessageDialog( this, "Please enter room Charges","Error", JOptionPane.ERROR_MESSAGE);
-           return;
-            }
-          
-       Statement stmt;
-       stmt= con.createStatement();
-       String sql1="Select RoomNo from Room where RoomNo= '" + txtRoomNo.getText() + "'";
-      rs=stmt.executeQuery(sql1);
-      if(rs.next()){
-        JOptionPane.showMessageDialog( this, "Room No. already exists","Error", JOptionPane.ERROR_MESSAGE);
-        txtRoomNo.setText("");
-        txtRoomNo.requestDefaultFocus();
-       return;
-   }
-      
-       String sql= "insert into Room(RoomNo,RoomType,RoomCharges,RoomStatus)values('"+ txtRoomNo.getText() + "','"+ cmbRoomType.getSelectedItem() + "'," + txtRoomCharges.getText() + ",'Vacant')";
-       pst=con.prepareStatement(sql);
-       pst.execute();
-     
-      JOptionPane.showMessageDialog(this,"Successfully saved","Room Record",JOptionPane.INFORMATION_MESSAGE); 
-      btnSave.setEnabled(false);
-      Get_Data();
-        }catch(HeadlessException | SQLException ex){
-           JOptionPane.showMessageDialog(this,ex); 
-                }
-    }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-  try{
-      con=Connect.ConnectDB();
-       String sql= "update Room set Roomtype='"+ cmbRoomType.getSelectedItem() + "',RoomCharges=" + txtRoomCharges.getText() + " where RoomNo='" + txtRoomNo.getText() + "'";
-       pst=con.prepareStatement(sql);
-       pst.execute();
-       JOptionPane.showMessageDialog(this,"Successfully updated","Room Record",JOptionPane.INFORMATION_MESSAGE); 
-       btnUpdate.setEnabled(false);
-       Get_Data();
-        }catch(HeadlessException | SQLException ex){
-           JOptionPane.showMessageDialog(this,ex); 
-                }
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
     private void Room_tableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Room_tableMouseClicked
-       try{
-            con=Connect.ConnectDB();
-            int row= Room_table.getSelectedRow();
-            String table_click= Room_table.getModel().getValueAt(row, 0).toString();
-            String sql= "select * from Room where RoomNo = '" + table_click + "'";
-            pst=con.prepareStatement(sql);
-            rs=  pst.executeQuery();
-            if(rs.next()){
-              
-                String add1=rs.getString("RoomNo");
+       try {
+            int row = Room_table.getSelectedRow();
+            String table_click = Room_table.getModel().getValueAt(row, 0).toString();
+            String sql = "SELECT * FROM Room WHERE RoomNo = ?";
+            pst = con.prepareStatement(sql);
+            pst.setString(1, table_click);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                String add1 = rs.getString("RoomNo");
                 txtRoomNo.setText(add1);
-                String add2=rs.getString("RoomType");
+                String add2 = rs.getString("RoomType");
                 cmbRoomType.setSelectedItem(add2);
-                int add3 = rs.getInt("RoomCharges");
-                String add4= Integer.toString(add3);
-                txtRoomCharges.setText(add4);
-                btnUpdate.setEnabled(true);
-                btnDelete.setEnabled(true);
-                btnSave.setEnabled(false);
-             
+                String add3 = rs.getString("NoOfRooms");
+                txtRoomCharges.setText(add3);
             }
-        }catch(Exception ex){
-            JOptionPane.showMessageDialog(this,ex);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, ex);
         }
     }//GEN-LAST:event_Room_tableMouseClicked
 
@@ -402,13 +294,94 @@ private void Reset()
         }
     }//GEN-LAST:event_txtRoomChargesKeyTyped
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtRoomChargesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRoomChargesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtRoomChargesActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+         Reset();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        SaveData();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+         DeleteData();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        UpdateData();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void txtRoomNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRoomNoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRoomNoActionPerformed
+
+    private void cmbRoomTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRoomTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbRoomTypeActionPerformed
+private void SaveData() {
+    try {
+        String sql = "INSERT INTO Room(`RoomNo`, `RoomType`, `NoOfRooms`) VALUES (?, ?, ?)";
+        pst = con.prepareStatement(sql);
+        pst.setString(1, txtRoomNo.getText());
+        pst.setString(2, cmbRoomType.getSelectedItem().toString());
+        pst.setString(3, txtRoomCharges.getText()); // Corrected variable name
+        pst.execute();
+        JOptionPane.showMessageDialog(this, "Record added successfully");
+        Reset();
+        Get_Data();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, e);
+    }
+}
+
+    private void UpdateData() {
+        try {
+        int row = Room_table.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(this, "Select a record to update");
+            return;
+        }
+        String roomNo = Room_table.getModel().getValueAt(row, 0).toString();
+        String sql = "UPDATE Room SET RoomType = ?, NoOfRooms = ? WHERE RoomNo = ?";
+        pst = con.prepareStatement(sql);
+        pst.setString(1, cmbRoomType.getSelectedItem().toString());
+        pst.setString(2, txtRoomCharges.getText());
+        pst.setString(3, roomNo);
+        pst.executeUpdate();
+        JOptionPane.showMessageDialog(this, "Record updated successfully");
+        Reset();
+        Get_Data();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, e);
+    }
+    }
+    
+    private void DeleteData() {
+        int row = Room_table.getSelectedRow();
+    if (row == -1) {
+        JOptionPane.showMessageDialog(this, "Select a record to delete");
+        return;
+    }
+    try {
+        String roomNo = Room_table.getModel().getValueAt(row, 0).toString();
+        String sql = "DELETE FROM Room WHERE RoomNo = ?";
+        pst = con.prepareStatement(sql);
+        pst.setString(1, roomNo);
+        pst.executeUpdate();
+        JOptionPane.showMessageDialog(this, "Record deleted successfully");
+        Reset();
+        Get_Data();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, e);
+    }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -442,20 +415,17 @@ private void Reset()
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable Room_table;
-    private javax.swing.JButton btnDelete;
-    private javax.swing.JButton btnGetData;
-    private javax.swing.JButton btnNew;
-    private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnUpdate;
     private javax.swing.JComboBox cmbRoomType;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField txtRoomCharges;
     private javax.swing.JTextField txtRoomNo;
     // End of variables declaration//GEN-END:variables
