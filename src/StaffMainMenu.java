@@ -40,7 +40,6 @@ public class StaffMainMenu extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenu8 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem14 = new javax.swing.JMenuItem();
         jMenu9 = new javax.swing.JMenu();
         jMenuItem17 = new javax.swing.JMenuItem();
@@ -99,14 +98,6 @@ public class StaffMainMenu extends javax.swing.JFrame {
         jMenu3.add(jMenuItem10);
 
         jMenu8.setText("Admit");
-
-        jMenuItem9.setText("Room");
-        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem9ActionPerformed(evt);
-            }
-        });
-        jMenu8.add(jMenuItem9);
 
         jMenuItem14.setText("Ward");
         jMenuItem14.addActionListener(new java.awt.event.ActionListener() {
@@ -227,7 +218,7 @@ public class StaffMainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem14ActionPerformed
-      PatientAdmit_Ward frm= new PatientAdmit_Ward();
+      Admission frm= new Admission();
      frm.setVisible(true);
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
@@ -244,11 +235,6 @@ public class StaffMainMenu extends javax.swing.JFrame {
     PatientRegistration frm= new PatientRegistration();
     frm.setVisible(true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
-
-    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
-    PatientAdmit_Room frm= new PatientAdmit_Room();
-    frm.setVisible(true);
-    }//GEN-LAST:event_jMenuItem9ActionPerformed
 
     private void jMenuItem17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem17ActionPerformed
     PatientDischarge_Room frm= new PatientDischarge_Room();
@@ -348,6 +334,5 @@ public class StaffMainMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }
